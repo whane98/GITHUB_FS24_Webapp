@@ -50,7 +50,7 @@
       max-width: 100%;
       text-rendering: optimizeSpeed;
       line-height: 1.5;
-      background-color: var(--background-color);
+      background-color: var(--background-color-light);
       margin: 0px;
     }
     
@@ -110,7 +110,7 @@
   }
 
   h1 {
-    color: var(--primary-color);
+    color: var(--background-color);
     font-size: 6rem;
     font-weight: 800;
     letter-spacing: 0.2rem;
@@ -350,10 +350,54 @@
   }
 
   .statistik-large-div {
-    background-color: green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
+  .title-div {
+    margin-top: 3rem;
+    width: auto;
+  }
 
+  .menu-div {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .menu-div {
+    margin-left: 20rem;
+  }
+
+  .main-div {
+    margin-top: 3rem;
+    display: flex;
+  }
+
+  .facts {
+    width: 30vw;
+    padding-left: 7rem;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .facts-p-fine {
+    font-weight: 300;
+  }
+
+  #statistik-button {
+    background-color: white;
+    border-radius: 5rem;
+    width: 12rem;
+    padding: 1rem;
+    font-weight: 400;
+    font-size: 1.2rem;
+  }
+
+  .switzerland img {
+    transition: opacity 0.5s ease; /* smooth transition for the image change */
+}
 
 
 
@@ -400,3 +444,4 @@
 
 
     }
+  }
