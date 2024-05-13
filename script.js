@@ -66,3 +66,5 @@ fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
     // Log any errors that occur during the fetch request
     console.error('There was a problem with the fetch operation:', error);
   });
+
+  
