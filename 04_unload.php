@@ -1,19 +1,19 @@
 <?php
 
-// Include the configuration file
+// Include the configuration file ---------------------------------------------------------------------------------------------
 require_once '00_config.php';
 
-// Check if the city parameter is provided in the request
+// Check if the city parameter is provided in the request ---------------------------------------------------------------------------------------------
 if (!isset($_GET['city'])) {
     echo json_encode(['error' => 'City parameter is missing']);
     exit;
 }
 
-// Retrieve the city parameter from the request
+// Retrieve the city parameter from the request ---------------------------------------------------------------------------------------------
 $city = $_GET['city'];
 
 try {
-    // Create a new PDO instance
+    // Create a new PDO instance 
     $pdo = new PDO($dsn, $db_user, $db_pass, $options);
 
     // Prepare the SQL query with a parameter placeholder for the city
