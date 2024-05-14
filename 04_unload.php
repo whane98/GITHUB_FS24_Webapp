@@ -57,7 +57,7 @@ try {
         'temperature' => $temperatures,
         'weatherCondition' => $weatherConditions,
         'sunshineDuration' => $sunshineDurations
-    ];
+    ]; 
 
     // Output JSON
     header('Content-Type: application/json');

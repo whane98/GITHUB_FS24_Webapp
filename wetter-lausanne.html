@@ -59,20 +59,17 @@
 
 
 
-        document.addEventListener('DOMContentLoaded', function() {
-        fetch('/path/to/getWeatherData.php')  // Update this path to the correct URL
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-            console.error('Error fetching data:', data.error);
-            } else {
-            document.getElementById('sunshine').textContent = data.sunshine || 'No data';
-            document.getElementById('weather').textContent = data.weather || 'No data';
-            document.getElementById('temperature').textContent = data.temperature || 'No data';
-            }
-        })
-        .catch(error => console.error('Fetch error:', error));
-        });
+        function loadWeatherUpdates() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '01_extract.php?updateWeather=true', true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            eval(xhr.responseText); // Executes the JavaScript returned by the PHP
+        }
+    };
+    xhr.send();
+}
+window.onload = loadWeatherUpdates; // Load weather updates when the page loads
     </script>
 </body>
 

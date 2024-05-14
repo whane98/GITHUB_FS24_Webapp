@@ -41,4 +41,35 @@ function processWeatherData($data)
         // echo "Cloud Cover: " . $item['current']['cloud_cover'] . "<br><br>";
     }
 }
+
+
+
+
+
+// Function to fetch latest weather data from the database
+function fetchLatestWeatherData($pdo) {
+    $stmt = $pdo->prepare("SELECT temperature, weather_condition, sunshine_duration FROM Weather_API_IM4 ORDER BY entry_id DESC LIMIT 1");
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+// Decide what action to take based on a query parameter or specific condition
+if (isset($_GET['updateWeather'])) {
+    // Assuming the PDO connection setup is similar to what's in your `00_config.php`
+    try {
+        $pdo = new PDO($dsn, $db_user, $db_pass, $options);
+        $latestWeather = fetchLatestWeatherData($pdo);
+
+        // Output JavaScript to update HTML content
+        header("Content-Type: application/javascript");
+        echo "document.getElementById('temperature').textContent = '{$latestWeather['temperature']} °C';";
+        echo "document.getElementById('weather').textContent = '{$latestWeather['weather_condition']}';";
+        echo "document.getElementById('sunshine').textContent = '{$latestWeather['sunshine_duration']} hours';";
+    } catch (PDOException $e) {
+        echo "console.error('Connection failed: " . addslashes($e->getMessage()) . "');";
+    }
+} else {
+    // Existing API data handling code
+    // Your existing code to handle API data extraction goes here
+}
 ?>
