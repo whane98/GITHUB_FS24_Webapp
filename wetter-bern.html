@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wetter Lausanne</title>
+    <title>Wetter Bern</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
@@ -19,7 +19,7 @@
         <header class="statistik-large-div">
             <div class="menu-div"></div>
             <div class="title-div" id="title-h1">
-                <h1>LAUSANNE</h1>
+                <h1>BERN</h1>
             </div>
             <div class="menu-div"><a href="menu.html"><img id="menu-img" src="img/menu.svg"></div></a>
         </header>
@@ -28,16 +28,16 @@
 
             <div class="facts">
                 <p>Sonnenschein</p>
-                <p class="facts-p-fine" id="sunshine-lausanne">Text</p><br>
+                <p class="facts-p-fine" id="sunshine-bern">Text</p><br>
                 <p>Wetter</p>
-                <p class="facts-p-fine" id="weather-lausanne">Text</p><br>
+                <p class="facts-p-fine" id="weather-bern">Text</p><br>
                 <p>Temperatur</p>
-                <p class="facts-p-fine" id="temperature-lausanne">Text</p><br><br>
-                <a href="statistik-lausanne"><button id="statistik-button">Zur Statistik</button></a>
+                <p class="facts-p-fine" id="temperature-bern">Text</p><br><br>
+                <a href="statistik-bern.html"><button id="statistik-button">Zur Statistik</button></a>
             </div>
 
             <div class="switzerland">
-                <img id="switzerland-img" src="img/romandie_mit_punkten-01.webp">
+                <img id="switzerland-img" src="img/deutschschweiz_mit_punkten-01.webp">
             </div>
 
         </div>
@@ -50,11 +50,11 @@
             const imgElement = document.getElementById('switzerland-img');
 
             imgElement.addEventListener('mouseover', function () {
-                this.src = 'img/romandie_weiss-01.webp'; // the new image that appears on hover
+                this.src = 'img/deutschschweiz_weiss-01.webp'; // the new image that appears on hover
             });
 
             imgElement.addEventListener('mouseout', function () {
-                this.src = 'img/romandie_mit_punkten-01.webp'; // original image
+                this.src = 'img/deutschschweiz_mit_punkten-01.webp'; // original image
             });
         });
 
@@ -63,10 +63,10 @@
             fetch('/weather_update.php') // Adjust the path to your PHP script
                 .then(response => response.json())
                 .then(data => {
-                    const lausanneData = data['Lausanne'];
+                    const bernData = data['Bern'];
 
-                    if (lausanneData.error) {
-                        console.error('No data for Lausanne:', lausanneData.error);
+                    if (bernData.error) {
+                        console.error('No data for Bern:', bernData.error);
                     } else {
                         // Translation mapping for weather conditions
                         const weatherTranslations = {
@@ -79,13 +79,13 @@
                             'stormy': 'Stürmisch'
                         };
 
-                        const sunshineText = `${lausanneData.sunshine_duration} Stunden`;
-                        const weatherText = weatherTranslations[lausanneData.weather_condition] || lausanneData.weather_condition;
-                        const temperatureText = `${lausanneData.temperature} °C`;
+                        const sunshineText = `${bernData.sunshine_duration} Stunden`;
+                        const weatherText = weatherTranslations[bernData.weather_condition] || bernData.weather_condition;
+                        const temperatureText = `${bernData.temperature} °C`;
 
-                        document.getElementById('sunshine-lausanne').textContent = sunshineText;
-                        document.getElementById('weather-lausanne').textContent = weatherText;
-                        document.getElementById('temperature-lausanne').textContent = temperatureText;
+                        document.getElementById('sunshine-bern').textContent = sunshineText;
+                        document.getElementById('weather-bern').textContent = weatherText;
+                        document.getElementById('temperature-bern').textContent = temperatureText;
                     }
                 })
                 .catch(error => console.error('Error fetching data:', error));
