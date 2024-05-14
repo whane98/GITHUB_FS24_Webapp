@@ -25,10 +25,3 @@ try {
     echo "Error: " . $e->getMessage();
 }
 
-
-
-$weatherData = [
-    'temperature' => 25, // Example temperature value
-    'weather-condition' => 'Sunny', // Example weather condition
-    'sunshine-duration' => '5 hours', // Example sunshine duration
-];

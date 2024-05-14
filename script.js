@@ -1,7 +1,7 @@
 let city = '?city=Bern&city=Lugano&city=Lausanne&city=Chur';
 
 
-// temperatur-dauer
+// temperatur-dauer ---------------------------------------------------------------------------------------------
 
 // Fetch data from the URL
 fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
@@ -25,11 +25,12 @@ fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
       data: {
         labels: timeData, // Time data for x-axis
         datasets: [{
-          label: 'Temperature (°C)',
+          label: 'Temperatur (°C)',
           data: temperatureData, // Temperature data for y-axis
-          borderColor: 'red',
-          borderWidth: 5,
-          fill: false
+          borderColor: '#259ED2',
+          borderWidth: 2,
+          fill: false,
+          pointRadius: 0 // Applies rounded points on the line chart
         }]
       },
       options: {
@@ -54,13 +55,13 @@ fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'Temperature (°C)'
+              labelString: 'Temperatur (°C)'
             }
           }]
         },
         title: {
           display: true,
-          text: 'Temperature Chart'
+          text: 'Temperatur'
         }
       }
     });
@@ -71,7 +72,7 @@ fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
   });
 
   
-// sonnenschein-dauer
+// sonnenschein-dauer ---------------------------------------------------------------------------------------------
 
 // Fetch data from the URL
 fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
@@ -97,9 +98,10 @@ fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
         datasets: [{
           label: 'Sonnenscheindauer (Stunden)',
           data: sunshineDurationData, // Sunshine Duration data for y-axis
-          borderColor: 'orange',
-          borderWidth: 5,
-          fill: false
+          borderColor: '#259ED2',
+          borderWidth: 2,
+          fill: false,
+          pointRadius: 0 // Applies rounded points on the line chart
         }]
       },
       options: {
@@ -146,7 +148,7 @@ fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
 
 
 
-  // wetterkonditionen
+  // wetterkonditionen ---------------------------------------------------------------------------------------------
   // Fetch data for weather conditions
 fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
 .then(response => {
@@ -178,11 +180,11 @@ fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
   const weatherChart = new Chart(ctxWeather, {
     type: 'doughnut',
     data: {
-      labels: ['Sunny', 'Cloudy', 'Rainy'],
+      labels: ['Sonnig', 'Bewölkt', 'Regnerisch'],
       datasets: [{
-        label: 'Weather Conditions',
+        label: 'Wetterverhältnisse',
         data: [weatherConditionCounts.sunny, weatherConditionCounts.cloudy, weatherConditionCounts.rainy],
-        backgroundColor: ['yellow', 'gray', 'blue'],
+        backgroundColor: ['#9CDCF0', '#C6C6C6', '#30748A'],
         hoverOffset: 4
       }]
     },
@@ -190,7 +192,7 @@ fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
       responsive: true,
       title: {
         display: true,
-        text: 'Weather Conditions'
+        text: 'Wetterverhältnisse'
       }
     }
   });

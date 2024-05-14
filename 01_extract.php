@@ -42,10 +42,6 @@ function processWeatherData($data)
     }
 }
 
-
-
-
-
 // Function to fetch latest weather data from the database
 function fetchLatestWeatherData($pdo) {
     $stmt = $pdo->prepare("SELECT temperature, weather_condition, sunshine_duration FROM Weather_API_IM4 ORDER BY entry_id DESC LIMIT 1");
