@@ -4,7 +4,7 @@ echo "hello world <br>";
 
 $url = "https://api.open-meteo.com/v1/forecast?latitude=46.9481,46.516,46.8499,46.0101&longitude=7.4474,6.6328,9.5329,8.96&current=temperature_2m,weather_code&daily=sunshine_duration&timezone=Europe%2FBerlin&forecast_days=16"; // Ersetze "https://your-new-api-url.com" durch die tatsächliche URL deiner neuen API.
 
-// Datenabruf
+// Datenabruf ---------------------------------------------------------------------------------------------
 $ch = curl_init(); // Curl-Handle, initialisiere cURL-Sitzung
 
 curl_setopt($ch, CURLOPT_URL, $url);    // Setze URL zum Abrufen
@@ -13,7 +13,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  // Setze cURL-Option, um die Ausga
 $weatherdata = curl_exec($ch);    // Führe cURL-Anfrage aus
 curl_close($ch);    // Schließe cURL-Handle
 
-// Fehlerbehandlung
+// Fehlerbehandlung ---------------------------------------------------------------------------------------------
 if ($weatherdata === false) {
     echo "Curl error: " . curl_error($ch);  // Fehler anzeigen, wenn während der cURL-Ausführung ein Fehler auftritt
 } else {
@@ -27,7 +27,7 @@ if ($weatherdata === null) {
     processWeatherData($weatherdata);
 }
 
-// Funktion zur Verarbeitung der neuen Wetterdaten
+// Funktion zur Verarbeitung der neuen Wetterdaten ---------------------------------------------------------------------------------------------
 function processWeatherData($data)
 {
     foreach ($data as $item) {

@@ -8,7 +8,7 @@ $weatherdata = addWeatherCondition($weatherdata);
 print_r($weatherdata);
 // print_r($weatherdata);
 
-// Funktion zum Abrufen von Daten von der API
+// Funktion zum Abrufen von Daten von der API ---------------------------------------------------------------------------------------------
 function fetchDataFromAPI() {
     $url = "https://api.open-meteo.com/v1/forecast?latitude=46.9481,46.516,46.8499,46.0101&longitude=7.4474,6.6328,9.5329,8.96&current=temperature_2m,weather_code&daily=sunshine_duration&timezone=Europe%2FBerlin&forecast_days=16";
 
@@ -26,6 +26,8 @@ function fetchDataFromAPI() {
 
     return $weatherdata;
 }
+
+// Funktion die Koordinaten zu Ortschaften zu machen ---------------------------------------------------------------------------------------------
 
 function mapCoordinatesToCities($data)
 {
@@ -56,6 +58,7 @@ function mapCoordinatesToCities($data)
     return $result;
 }
 
+// Funktion zum Temperaturen runden ---------------------------------------------------------------------------------------------
 
 function roundTemperatures($data)
 {
@@ -64,6 +67,8 @@ function roundTemperatures($data)
     }
     return $data;
 }
+
+// Funktion zum Wetterkonditionen zu bestimmen ---------------------------------------------------------------------------------------------
 
 function addWeatherCondition($data)
 {
@@ -80,35 +85,6 @@ function addWeatherCondition($data)
     }
     return $data;
 }
-
-
-
-
-
-
-
-header('Content-Type: application/json');
-
-require '00_config.php'; // Your database configuration file
-
-try {
-    $pdo = new PDO($dsn, $db_user, $db_pass, $options);
-    $stmt = $pdo->query("SELECT city, temperature, weather_condition, sunshine_duration FROM Weather_API_IM4 ORDER BY created_at DESC LIMIT 1");
-    $data = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($data) {
-        echo json_encode([
-            'sunshine' => $data['sunshine_duration'] . ' hours',
-            'weather' => $data['weather_condition'],
-            'temperature' => $data['temperature'] . '°C'
-        ]);
-    } else {
-        echo json_encode(['error' => 'No data available']);
-    }
-} catch (PDOException $e) {
-    echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
-}
-
 
 ?>
 

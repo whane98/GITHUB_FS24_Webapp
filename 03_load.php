@@ -4,10 +4,10 @@ require_once '02_transform.php';
 require_once '00_config.php';
 
 try {
-    // Create a new PDO instance
+    // Create a new PDO instance ---------------------------------------------------------------------------------------------
     $pdo = new PDO($dsn, $db_user, $db_pass, $options);
 
-    // Prepare SQL statement for inserting data into the database
+    // Prepare SQL statement for inserting data into the database ---------------------------------------------------------------------------------------------
     $stmt = $pdo->prepare("INSERT INTO Weather_API_IM4 (city, temperature, weather_condition, sunshine_duration) VALUES (?, ?, ?, ?)");
 
     // Iterate over each item in $weather_data array

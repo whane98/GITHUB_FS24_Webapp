@@ -17,3 +17,30 @@ $options = [
   PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
   PDO::ATTR_EMULATE_PREPARES   => false
 ];
+
+
+
+
+
+
+header('Content-Type: application/json');
+
+require '00_config.php'; // Your database configuration file
+
+try {
+    $pdo = new PDO($dsn, $db_user, $db_pass, $options);
+    $stmt = $pdo->query("SELECT city, temperature, weather_condition, sunshine_duration FROM Weather_API_IM4 ORDER BY created_at DESC LIMIT 1");
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($data) {
+        echo json_encode([
+            'sunshine' => $data['sunshine_duration'] . ' hours',
+            'weather' => $data['weather_condition'],
+            'temperature' => $data['temperature'] . '°C'
+        ]);
+    } else {
+        echo json_encode(['error' => 'No data available']);
+    }
+} catch (PDOException $e) {
+    echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
+}
