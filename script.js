@@ -217,15 +217,3 @@ fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
 // });
 
 
-// change-image-on-hover
-document.addEventListener('DOMContentLoaded', function() {
-  const imgElement = document.getElementById('switzerlandImage');
-
-  imgElement.addEventListener('mouseover', function() {
-      this.src = 'img/CH-EPS-01-0001.png'; // the new image that appears on hover
-  });
-
-  imgElement.addEventListener('mouseout', function() {
-      this.src = 'img/CH-EPS-01-0002.png'; // original image
-  });
-});

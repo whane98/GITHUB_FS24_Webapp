@@ -141,11 +141,11 @@
   }
 
   a:link {
-    color: var(--text-color);
+    color: var(--primary-color);
   }
 
   a:visited {
-    color: var(--text-color);
+    color: var(--primary-color);
   }
 
   ul, li {
@@ -349,6 +349,16 @@
     overflow-y: hidden;
   }
 
+  .content-wrapper {
+    width: 100%; 
+    max-width: 100%; /* optionally set maximum width */
+    height: auto;
+  }
+
+  .content-wrapper.hidden {
+    display: none;
+  }
+
   .statistik-large-div {
     display: flex;
     align-items: center;
@@ -371,6 +381,7 @@
 
   .main-div {
     margin-top: 3rem;
+    margin-bottom: 2rem;
     display: flex;
   }
 
@@ -387,7 +398,7 @@
   }
 
   #statistik-button {
-    background-color: white;
+    background-color: var(--primary-color);
     border-radius: 5rem;
     width: 12rem;
     padding: 1rem;
@@ -395,10 +406,28 @@
     font-size: 1.2rem;
   }
 
+  .switzerland {
+    padding-right: 1rem;
+  }
+
   .switzerland img {
-    transition: opacity 0.5s ease; /* smooth transition for the image change */
+    transition: opacity 2s ease; 
 }
 
+  .primary-text-div {
+    width: 100vw;
+    height: auto;
+    padding: 1% 25% 5% 25%;
+  }
+
+  #p-menu {
+    justify-content: center;
+    color: var(--primary-color);
+  }
+
+  button {
+    cursor: pointer;
+  }
 
 
   /* ----------------------------------------menu.html---------------------------------------- */

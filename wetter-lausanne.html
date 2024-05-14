@@ -13,28 +13,67 @@
 </head>
 
 <body>
-    <div class="statistik-large-div">
+
+    <div class="content-wrapper">
+    <header class="statistik-large-div">
         <div class="menu-div"></div>
-        <div class="title-div"><h1>LAUSANNE</h1></div>
+        <div class="title-div" id="title-h1">
+            <h1>LAUSANNE</h1>
+        </div>
         <div class="menu-div"><a href="menu.html"><img id="menu-img" src="img/menu.svg"></div></a>
-    </div>
+    </header>
 
     <div class="main-div">
 
     <div class="facts">
-        <p>Sonnenschein</p><p class="facts-p-fine">Text</p><br>
-        <p>Wetter</p><p class="facts-p-fine">Text</p><br>
-        <p>Temperatur</p><p class="facts-p-fine">Text</p><br><br>
+        <p>Sonnenschein</p><p class="facts-p-fine" id="sunshine">Text</p><br>
+        <p>Wetter</p><p class="facts-p-fine" id="weather">Text</p><br>
+        <p>Temperatur</p><p class="facts-p-fine" id="temperature">Text</p><br><br>
         <a href="statistik-lausanne"><button id="statistik-button">Zur Statistik</button></a>
     </div>
 
     <div class="switzerland">
-        <img id="switzerland-img" src="img/CH-EPS-01-0002.png">
+        <img id="switzerland-img" src="img/romandie_mit_punkten-01.webp">
     </div>
 
 </div>
+</div>
 
-    <script src="script.js"></script>
+    <script>
+
+        // change-image-on-hover
+        document.addEventListener('DOMContentLoaded', function() {
+        const imgElement = document.getElementById('switzerland-img');
+
+        imgElement.addEventListener('mouseover', function() {
+        this.src = 'img/romandie_weiss-01.webp'; // the new image that appears on hover
+        });
+
+        imgElement.addEventListener('mouseout', function() {
+            this.src = 'img/romandie_mit_punkten-01.webp'; // original image
+        });
+        });
+
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+        fetch('/path/to/getWeatherData.php')  // Update this path to the correct URL
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+            console.error('Error fetching data:', data.error);
+            } else {
+            document.getElementById('sunshine').textContent = data.sunshine || 'No data';
+            document.getElementById('weather').textContent = data.weather || 'No data';
+            document.getElementById('temperature').textContent = data.temperature || 'No data';
+            }
+        })
+        .catch(error => console.error('Fetch error:', error));
+        });
+    </script>
 </body>
 
 </html>
