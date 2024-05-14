@@ -1,95 +1,95 @@
   /* ----------------------------------------document reset---------------------------------------- */
 
   * {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      outline: 0;
-      font-size: 100%;
-      width: 100%;
-      font-family: "Poppins", sans-serif;
-      vertical-align: baseline;
-      background: transparent;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    width: 100%;
+    font-family: "Poppins", sans-serif;
+    vertical-align: baseline;
+    background: transparent;
+  }
+
+  /* 1. box sizing rules */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* 2. remove default margin */
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd {
+    margin: 0;
+  }
+
+  /* 3. remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+  ul[role='list'],
+  ol[role='list'] {
+    list-style: none;
+  }
+
+  /* 4. set core root defaults */
+  html:focus-within {
+    scroll-behavior: smooth;
+  }
+
+  /* 5. set core body defaults */
+  body {
+    min-height: 100vh;
+    max-width: 100%;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    background-color: var(--background-color-light);
+    margin: 0px;
+  }
+
+  /* 6. a elements that don't have a class get default styles */
+  a:not([class]) {
+    text-decoration-skip-ink: auto;
+  }
+
+  /* 7. make images easier to work with */
+  img,
+  picture {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* 8. inherit fonts for inputs and buttons */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  /* 9. remove all animations, transitions and smooth scroll for people that prefer not to see them */
+  @media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+      scroll-behavior: auto;
     }
-    
-    /* 1. box sizing rules */
+
     *,
     *::before,
     *::after {
-      box-sizing: border-box;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
-    
-    /* 2. remove default margin */
-    body,
-    h1,
-    h2,
-    h3,
-    h4,
-    p,
-    figure,
-    blockquote,
-    dl,
-    dd {
-      margin: 0;
-    }
-    
-    /* 3. remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-    ul[role='list'],
-    ol[role='list'] {
-      list-style: none;
-    }
-    
-    /* 4. set core root defaults */
-    html:focus-within {
-      scroll-behavior: smooth;
-    }
-    
-    /* 5. set core body defaults */
-    body {
-      min-height: 100vh;
-      max-width: 100%;
-      text-rendering: optimizeSpeed;
-      line-height: 1.5;
-      background-color: var(--background-color-light);
-      margin: 0px;
-    }
-    
-    /* 6. a elements that don't have a class get default styles */
-    a:not([class]) {
-      text-decoration-skip-ink: auto;
-    }
-    
-    /* 7. make images easier to work with */
-    img,
-    picture {
-      max-width: 100%;
-      display: block; 
-    }
-    
-    /* 8. inherit fonts for inputs and buttons */
-    input,
-    button,
-    textarea,
-    select {
-      font: inherit;
-    }
-    
-    /* 9. remove all animations, transitions and smooth scroll for people that prefer not to see them */
-    @media (prefers-reduced-motion: reduce) {
-      html:focus-within {
-          scroll-behavior: auto;
-      }
-    
-      *,
-      *::before,
-      *::after {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.01ms !important;
-          scroll-behavior: auto !important;
-      }
 
-    }
+  }
 
   /* ----------------------------------------general---------------------------------------- */
 
@@ -121,7 +121,7 @@
 
   h2 {
     color: var(--primary-color);
-    font-size: 5.5rem; 
+    font-size: 5.5rem;
     font-weight: 700;
     letter-spacing: 0.12rem;
     line-height: 1.1;
@@ -148,35 +148,48 @@
     color: var(--primary-color);
   }
 
-  ul, li {
+  ul,
+  li {
     list-style: none;
   }
 
   .container {
     width: 100%;
     max-width: 100%;
-    margin: 0 auto; 
-    box-sizing: border-box; /* include padding and border in the element's total width and height */
+    margin: 0 auto;
+    box-sizing: border-box;
+    /* include padding and border in the element's total width and height */
     overflow-x: hidden;
   }
 
-  ::selection { /* select the text when double-clicked */
-    background-color: white; 
+  ::selection {
+    /* select the text when double-clicked */
+    background-color: white;
   }
 
-  ::-moz-selection { /* prevent selecting text when double-clicked */
+  ::-moz-selection {
+    /* prevent selecting text when double-clicked */
     background-color: white;
-  } 
+  }
 
-  body { /* disable text selection */
-    -webkit-user-select: none; /* safari */
-    -moz-user-select: none; /* firefox */
-    -ms-user-select: none; /* ie 10+ */
-    user-select: none; /* standard syntax */
+  body {
+    /* disable text selection */
+    -webkit-user-select: none;
+    /* safari */
+    -moz-user-select: none;
+    /* firefox */
+    -ms-user-select: none;
+    /* ie 10+ */
+    user-select: none;
+    /* standard syntax */
   }
 
   /* remove the blue highlight while clicking a link on a mobile phone */
-  input, textarea, button, select, a {
+  input,
+  textarea,
+  button,
+  select,
+  a {
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -330,16 +343,18 @@
   /* ----------------------------------------optimizing the fonts---------------------------------------- */
 
   p {
-    -moz-font-feature-settings:    "kern" 1; 
-    -ms-font-feature-settings:     "kern" 1; 
-    -o-font-feature-settings:      "kern" 1; 
-    -webkit-font-feature-settings: "kern" 1; 
-    font-feature-settings:         "kern" 1;
+    -moz-font-feature-settings: "kern" 1;
+    -ms-font-feature-settings: "kern" 1;
+    -o-font-feature-settings: "kern" 1;
+    -webkit-font-feature-settings: "kern" 1;
+    font-feature-settings: "kern" 1;
     font-kerning: normal;
     letter-spacing: 0.015em;
     word-spacing: 0.001em;
-    -webkit-font-smoothing: antialiased; /* chrome, safari */
-    -moz-osx-font-smoothing: grayscale; /* firefox */
+    -webkit-font-smoothing: antialiased;
+    /* chrome, safari */
+    -moz-osx-font-smoothing: grayscale;
+    /* firefox */
     text-rendering: optimizeLegibility;
   }
 
@@ -350,8 +365,8 @@
   }
 
   .content-wrapper {
-    width: 100%; 
-    max-width: 100%; /* optionally set maximum width */
+    width: 100%;
+    max-width: 100%;
     height: auto;
   }
 
@@ -359,33 +374,33 @@
     display: none;
   }
 
-.statistik-large-div {
+  .statistik-large-div {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Adjusts children elements to the start, center, and end */
-}
+    justify-content: space-between;
+  }
 
-.title-div {
+  .title-div {
     margin-top: 2rem;
     justify-content: center;
     text-align: center;
-}
+  }
 
-.menu-div {
-    width: auto; /* Adjusted for natural content width */
+  .menu-div {
+    width: auto;
     height: 5rem;
     text-align: right;
     padding-top: 0.8rem;
     padding-right: 3.5rem;
-}
+  }
 
-#menu-img {
+  #menu-img {
     width: 4rem;
-}
+  }
 
-.menu-div:first-child #menu-img {
+  .menu-div:first-child #menu-img {
     opacity: 0;
-}
+  }
 
   .main-div {
     margin-top: 3rem;
@@ -419,11 +434,11 @@
   }
 
   .switzerland img {
-    transition: opacity 2s ease; 
-}
+    transition: opacity 2s ease;
+  }
 
   .primary-text-div {
-    width: 100vw;
+    width: 100%;
     height: auto;
     padding: 1% 25% 5% 25%;
   }
@@ -436,6 +451,17 @@
   button {
     cursor: pointer;
   }
+
+  .body-statistik {
+    background-color: var(--primary-color);
+  }
+
+  #content-wrapper-statistik {
+    background-color: var(--background-color-light);
+    height: 10rem;
+  }
+
+
 
 
   /* ----------------------------------------menu.html---------------------------------------- */
@@ -455,28 +481,32 @@
   /* ----------------------------------------make it responsive please---------------------------------------- */
 
 
-  @media(max-width: 1400px) {   /* ------1400px------ */
-      
-    
-    
-  /*  -------------------  */
+  @media(max-width: 1400px) {
+    /* ------1400px------ */
 
-    @media(max-width: 1000px) {   /* ------1000px------ */    
 
-    
-  }
 
-  /*  -------------------  */
+    /*  -------------------  */
 
-    @media(max-width: 500px) {    /* ------500px------ */  
+    @media(max-width: 1000px) {
+      /* ------1000px------ */
 
-    
-    
+
     }
 
-  /*  -------------------  */
+    /*  -------------------  */
 
-    @media(max-width: 350px) {    /* ------350px------ */
+    @media(max-width: 500px) {
+      /* ------500px------ */
+
+
+
+    }
+
+    /*  -------------------  */
+
+    @media(max-width: 350px) {
+      /* ------350px------ */
 
 
 
