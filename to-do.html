@@ -8,3 +8,59 @@
 - alles responsive
 - abstand schweizerkarte zu rechts gleich wie menu oben rechts. feinarbeit, mittels bg-color herausfinden und allenfalls gleicher padding-right nehmen
 - code validieren
+
+
+
+
+
+
+<?php
+// Include database configuration and connection setup
+require_once '00_config.php';
+
+// Function to fetch latest weather data from the database
+try {
+    // Connect to database
+    $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
+    // Set pdo error mode for error handling
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Get data from database
+    $stmt = $pdo->prepare("SELECT temperature, weather_condition, sunshine_duration FROM Weather_API_IM4 ORDER BY id DESC LIMIT 1");
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Error handling
+    if(empty($weatherdata)){
+        echo json_encode(['error' => 'No weather data found']);
+        return;
+    };
+
+    // Initialize arrays to hold the time and temperature values
+    $temperature = [];
+    $sunshineDuration = [];
+    $weatherCondition = [];
+
+    // Iterate over each item in $weather_data array and add it to the corresponding array
+    foreach ($weatherdata as $item) {
+        $temperature[] = $item['temperature'];
+        $sunshineDuration[] = $item['sunshine_duration'];
+        $weatherCondition[] = $item['weather_condition'];
+    }
+
+    // Structure the array
+    $data = [
+        'temperature' => $temperature,
+        'sunshineDuration' => $sunshineDuration,
+        'weatherCondition' => $weatherCondition
+    ];
+
+    // Return the array
+    header('Content-Type: application/json');
+    echo json_encode($data);
+
+} catch (\Throwable $th) {
+    // Error handling
+    error_log($th->getMessage());
+    throw new Exception($th->getMessage());
+}

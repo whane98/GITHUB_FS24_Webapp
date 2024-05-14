@@ -6,70 +6,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statistik Lausanne</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="apple-touch-icon" sizes="180x180" href="favicon-180px.webp">
     <link rel="shortcut icon" href="favicon.svg">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
 </head>
 
 <body>
 
     <div class="content-wrapper">
-    <header class="statistik-large-div">
-        <div class="menu-div"></div>
-        <div class="title-div" id="title-h1">
-            <h1>LAUSANNE</h1>
+        <header class="statistik-large-div">
+            <div class="menu-div"></div>
+            <div class="title-div" id="title-h1">
+                <h1>LAUSANNE</h1>
+            </div>
+            <div class="menu-div"><a href="menu.html"><img id="menu-img" src="img/menu.svg"></div></a>
+        </header>
+
+        <div class="main-div">
+
+            <div class="facts">
+                <p>Sonnenschein</p>
+                <p class="facts-p-fine" id="sunshine-lausanne">Text</p><br>
+                <p>Wetter</p>
+                <p class="facts-p-fine" id="weather-lausanne">Text</p><br>
+                <p>Temperatur</p>
+                <p class="facts-p-fine" id="temperature-lausanne">Text</p><br><br>
+                <a href="statistik-lausanne"><button id="statistik-button">Zur Statistik</button></a>
+            </div>
+
+            <div class="switzerland">
+                <img id="switzerland-img" src="img/romandie_mit_punkten-01.webp">
+            </div>
+
         </div>
-        <div class="menu-div"><a href="menu.html"><img id="menu-img" src="img/menu.svg"></div></a>
-    </header>
-
-    <div class="main-div">
-
-    <div class="facts">
-        <p>Sonnenschein</p><p class="facts-p-fine" id="sunshine">Text</p><br>
-        <p>Wetter</p><p class="facts-p-fine" id="weather">Text</p><br>
-        <p>Temperatur</p><p class="facts-p-fine" id="temperature">Text</p><br><br>
-        <a href="statistik-lausanne"><button id="statistik-button">Zur Statistik</button></a>
     </div>
-
-    <div class="switzerland">
-        <img id="switzerland-img" src="img/romandie_mit_punkten-01.webp">
-    </div>
-
-</div>
-</div>
 
     <script>
 
-        // change-image-on-hover
-        document.addEventListener('DOMContentLoaded', function() {
-        const imgElement = document.getElementById('switzerland-img');
+        // change-image-on-hover ---------------------------------------------------------------------------------------------
+        document.addEventListener('DOMContentLoaded', function () {
+            const imgElement = document.getElementById('switzerland-img');
 
-        imgElement.addEventListener('mouseover', function() {
-        this.src = 'img/romandie_weiss-01.webp'; // the new image that appears on hover
+            imgElement.addEventListener('mouseover', function () {
+                this.src = 'img/romandie_weiss-01.webp'; // the new image that appears on hover
+            });
+
+            imgElement.addEventListener('mouseout', function () {
+                this.src = 'img/romandie_mit_punkten-01.webp'; // original image
+            });
         });
 
-        imgElement.addEventListener('mouseout', function() {
-            this.src = 'img/romandie_mit_punkten-01.webp'; // original image
+        // fill in the 3 facts in german ---------------------------------------------------------------------------------------------
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('/weather_update.php') // Adjust the path to your PHP script
+                .then(response => response.json())
+                .then(data => {
+                    const lausanneData = data['Lausanne'];
+
+                    if (lausanneData.error) {
+                        console.error('No data for Lausanne:', lausanneData.error);
+                    } else {
+                        // Translation mapping for weather conditions
+                        const weatherTranslations = {
+                            'sunny': 'Sonnig',
+                            'cloudy': 'Bewölkt',
+                            'rainy': 'Regnerisch',
+                            'snowy': 'Schnee',
+                            'foggy': 'Nebelig',
+                            'windy': 'Windig',
+                            'stormy': 'Stürmisch'
+                        };
+
+                        const sunshineText = `${lausanneData.sunshine_duration} Stunden`;
+                        const weatherText = weatherTranslations[lausanneData.weather_condition] || lausanneData.weather_condition;
+                        const temperatureText = `${lausanneData.temperature} °C`;
+
+                        document.getElementById('sunshine-lausanne').textContent = sunshineText;
+                        document.getElementById('weather-lausanne').textContent = weatherText;
+                        document.getElementById('temperature-lausanne').textContent = temperatureText;
+                    }
+                })
+                .catch(error => console.error('Error fetching data:', error));
         });
-        });
 
-
-
-
-
-
-        function loadWeatherUpdates() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '01_extract.php?updateWeather=true', true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            eval(xhr.responseText); // Executes the JavaScript returned by the PHP
-        }
-    };
-    xhr.send();
-}
-window.onload = loadWeatherUpdates; // Load weather updates when the page loads
     </script>
 </body>
 
