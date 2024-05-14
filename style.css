@@ -359,25 +359,33 @@
     display: none;
   }
 
-  .statistik-large-div {
+.statistik-large-div {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Adjusts children elements to the start, center, and end */
+}
+
+.title-div {
+    margin-top: 2rem;
     justify-content: center;
-  }
+    text-align: center;
+}
 
-  .title-div {
-    margin-top: 3rem;
-    width: auto;
-  }
-
-  .menu-div {
-    width: 5rem;
+.menu-div {
+    width: auto; /* Adjusted for natural content width */
     height: 5rem;
-  }
+    text-align: right;
+    padding-top: 0.8rem;
+    padding-right: 3.5rem;
+}
 
-  .menu-div {
-    margin-left: 20rem;
-  }
+#menu-img {
+    width: 4rem;
+}
+
+.menu-div:first-child #menu-img {
+    opacity: 0;
+}
 
   .main-div {
     margin-top: 3rem;
