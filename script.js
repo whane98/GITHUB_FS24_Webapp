@@ -21,7 +21,7 @@ function createChart(city, timeData, temperatureData) {
         data: {
             labels: timeData,
             datasets: [{
-                label: `Temperatur in ${city}`,
+                label: `Temperatur`,
                 data: temperatureData,
                 borderColor: '#259ED2',
                 borderWidth: 2,
@@ -41,8 +41,7 @@ function createChart(city, timeData, temperatureData) {
                         }
                     },
                     title: {
-                        display: true,
-                        text: 'Uhrzeit'
+                        display: true
                     }
                 },
                 y: {
@@ -54,9 +53,28 @@ function createChart(city, timeData, temperatureData) {
                 }
             },
             plugins: {
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                    }
+                },
                 title: {
-                    display: true,
-                   // text: `Temperaturverlauf in ${city}`
+                    display: true
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += new Intl.NumberFormat('de-DE', { style: 'decimal' }).format(context.parsed.y);
+                            }
+                            return label + ' °C';
+                        }
+                    }
                 }
             }
         }
@@ -79,7 +97,7 @@ function createSunshineChart(city, timeData, sunshineDurationData) {
         data: {
             labels: timeData,
             datasets: [{
-                label: `Sonnenscheindauer in ${city}`,
+                label: `Sonnenscheindauer`,
                 data: sunshineDurationData,
                 borderColor: '#FFA500',
                 borderWidth: 2,
@@ -108,9 +126,28 @@ function createSunshineChart(city, timeData, sunshineDurationData) {
                 }
             },
             plugins: {
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                    }
+                },
                 title: {
-                    display: true,
-                    //text: `Sonnenscheindauer in ${city}`
+                    display: true
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += new Intl.NumberFormat('de-DE', { style: 'decimal' }).format(context.parsed.y);
+                            }
+                            return label + ' h';
+                        }
+                    }
                 }
             }
         }
@@ -135,17 +172,17 @@ function createWeatherChart(city, weatherConditionCounts) {
           datasets: [{
               data: [weatherConditionCounts.sunny, weatherConditionCounts.cloudy, weatherConditionCounts.rainy],
               backgroundColor: ['#9CDCF0', '#C6C6C6', '#30748A'],
-              borderColor: ['#ffffff', '#ffffff', '#ffffff'], // Border-Farben ändern
+              borderColor: ['#ffffff', '#ffffff', '#ffffff'],
               borderWidth: 0.5,
-              hoverBorderColor: ['#ffffff', '#ffffff', '#ffffff'], // Border-Farben beim Hover ändern
-              hoverBorderWidth: 1.5,
+              hoverBorderColor: ['#ffffff', '#ffffff', '#ffffff'],
+              hoverBorderWidth: 2,
               hoverOffset: 2
           }]
       },
       options: {
           responsive: true,
-          maintainAspectRatio: true, // Verhältnis beibehalten
-          aspectRatio: 1.5, // Doughnut Größe
+          maintainAspectRatio: true,
+          aspectRatio: 1.5,
           layout: {
               padding: {
                   top: 10,
@@ -153,15 +190,33 @@ function createWeatherChart(city, weatherConditionCounts) {
               }
           },
           plugins: {
+            legend: {
+                labels: {
+                    usePointStyle: true,
+                    pointStyle: 'circle'
+                }
+            },
               title: {
-                  display: true,
-                  //text: `Wetterverhältnisse in ${city}`
+                  display: true
+              },
+              tooltip: {
+                  callbacks: {
+                      label: function(context) {
+                          let label = context.label || '';
+                          if (label) {
+                              label += ': ';
+                          }
+                          if (context.raw !== null) {
+                              label += new Intl.NumberFormat('de-DE', { style: 'decimal' }).format(context.raw);
+                          }
+                          return label;
+                      }
+                  }
               }
           }
       }
   });
 }
-
 
 // Daten für jede Stadt einzeln abrufen und ein Diagramm erstellen
 cities.forEach(city => {
@@ -186,7 +241,7 @@ cities.forEach(city => {
             createWeatherChart(city, weatherConditionCounts);
         })
         .catch(error => {
-            console.error(`There was a problem with the fetch operation for ${city}:`, error);
+            console.error(`Es gab ein Problem mit der Fetch-Operation für ${city}:`, error);
         });
 });
 

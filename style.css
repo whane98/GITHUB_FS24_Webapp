@@ -487,6 +487,16 @@
     width: 5rem;
   }
 
+  .chart-container {
+    position: relative;
+    margin: auto;
+    height: 80vh; /* Sie können die Höhe nach Bedarf anpassen */
+    width: 80vw; /* Sie können die Breite nach Bedarf anpassen */
+}
+.legend-label {
+    border-radius: 10px; /* Border-Radius für die Legenden-Labels */
+}
+
   /* ----------------------------------------menu.html---------------------------------------- */
 
   #h2-menu {
