@@ -1,205 +1,209 @@
-let city = '?city=Bern&city=Lugano&city=Lausanne&city=Chur';
+// Stadt-Liste
+const cities = ['Bern', 'Lugano', 'Lausanne', 'Chur'];
 
+// Globale Speicherung der Daten und Chart-Instanzen
+const cityData = {};
+const charts = {};
 
-// temperatur-dauer ---------------------------------------------------------------------------------------------
-
-// Fetch data from the URL
-fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
-  .then(response => {
-    // Check if the response is successful (status code 200)
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+// Funktion zum Erstellen eines Temperaturdiagramms
+function createChart(city, timeData, temperatureData) {
+    const canvasId = `temperatureChart-${city}`;
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    
+    // Zerstöre bestehende Chart-Instanz, falls vorhanden
+    if (charts[canvasId]) {
+        charts[canvasId].destroy();
     }
-    // Parse the JSON response
-    return response.json();
-  })
-  .then(data => {
-    // Extract time and temperature data from the JSON response
-    const timeData = data.time;
-    const temperatureData = data.temperature;
 
-    // Create a new Chart instance
-    const ctx = document.getElementById('temperatureChart').getContext('2d');
-    const temperatureChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: timeData, // Time data for x-axis
-        datasets: [{
-          label: 'Temperatur (°C)',
-          data: temperatureData, // Temperature data for y-axis
-          borderColor: '#259ED2',
-          borderWidth: 2,
-          fill: false,
-          pointRadius: 0 // Applies rounded points on the line chart
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          xAxes: [{
-            type: 'time',
-            time: {
-              parser: 'MM-DD HH:mm',
-              tooltipFormat: 'MM-DD HH:mm:ss',
-              unit: 'hour',
-              displayFormats: {
-                hour: 'HH:mm'
-              },
-              stepSize: 1
-            },
-            scaleLabel: {
-              display: true,
-              labelString: 'Time'
-            }
-          }],
-          yAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: 'Temperatur (°C)'
-            }
-          }]
+    // Neue Chart-Instanz erstellen
+    charts[canvasId] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: timeData,
+            datasets: [{
+                label: `Temperatur in ${city}`,
+                data: temperatureData,
+                borderColor: '#259ED2',
+                borderWidth: 2,
+                fill: false,
+                pointRadius: 0
+            }]
         },
-        title: {
-          display: true,
-          text: 'Temperatur'
-        }
-      }
-    });
-  })
-  .catch(error => {
-    // Log any errors that occur during the fetch request
-    console.error('There was a problem with the fetch operation:', error);
-  });
-
-  
-// sonnenschein-dauer ---------------------------------------------------------------------------------------------
-
-// Fetch data from the URL
-fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
-  .then(response => {
-    // Check if the response is successful (status code 200)
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    // Parse the JSON response
-    return response.json();
-  })
-  .then(data => {
-    // Extract time and sunshine duration data from the JSON response
-    const timeData = data.time;
-    const sunshineDurationData = data.sunshineDuration;  // Adjust this according to your JSON structure
-
-    // Create a new Chart instance for Sunshine Duration
-    const ctxSunshine = document.getElementById('sonnenscheindauer').getContext('2d');
-    const sunshineChart = new Chart(ctxSunshine, {
-      type: 'line',
-      data: {
-        labels: timeData, // Time data for x-axis
-        datasets: [{
-          label: 'Sonnenscheindauer (Stunden)',
-          data: sunshineDurationData, // Sunshine Duration data for y-axis
-          borderColor: '#259ED2',
-          borderWidth: 2,
-          fill: false,
-          pointRadius: 0 // Applies rounded points on the line chart
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          xAxes: [{
-            type: 'time',
-            time: {
-              parser: 'MM-DD HH:mm',
-              tooltipFormat: 'MM-DD HH:mm:ss',
-              unit: 'hour',
-              displayFormats: {
-                hour: 'HH:mm'
-              },
-              stepSize: 1
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'hour',
+                        displayFormats: {
+                            hour: 'HH:mm'
+                        }
+                    },
+                    title: {
+                        display: true,
+                       // text: 'Uhrzeit'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Temperatur (°C)'
+                    }
+                }
             },
-            scaleLabel: {
-              display: true,
-              labelString: 'Time'
+            plugins: {
+                title: {
+                    display: true,
+                    // text: `Temperaturverlauf in ${city}`
+                }
             }
-          }],
-          yAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: 'Sonnenscheindauer (Stunden)'
-            }
-          }]
-        },
-        title: {
-          display: true,
-          text: 'Sonnenschein Dauer Chart'
         }
-      }
     });
-  })
-  .catch(error => {
-    // Log any errors that occur during the fetch operation
-    console.error('There was a problem with the fetch operation:', error);
-  });
+}
 
-
-
-
-
-
-
-  // wetterkonditionen ---------------------------------------------------------------------------------------------
-  // Fetch data for weather conditions
-fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php${city}`)
-.then(response => {
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return response.json();
-})
-.then(data => {
-  let weatherConditionCounts = { sunny: 0, cloudy: 0, rainy: 0 };
-
-  console.log(data);
-
-  // Count each weather condition
-  data.weatherCondition.forEach(item => {
-    if (item === 'sunny') {
-      weatherConditionCounts.sunny += 1;
-    } else if (item === 'cloudy') {
-      weatherConditionCounts.cloudy += 1;
-    } else if (item === 'rainy') {
-      weatherConditionCounts.rainy += 1;
+// Funktion zum Erstellen eines Sonnenscheindauer-Diagramms
+function createSunshineChart(city, timeData, sunshineDurationData) {
+    const canvasId = `sunshineChart-${city}`;
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    
+    // Zerstöre bestehende Chart-Instanz, falls vorhanden
+    if (charts[canvasId]) {
+        charts[canvasId].destroy();
     }
-  });
 
-  console.log(weatherConditionCounts);
+    // Neue Chart-Instanz erstellen
+    charts[canvasId] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: timeData,
+            datasets: [{
+                label: `Sonnenscheindauer in ${city}`,
+                data: sunshineDurationData,
+                borderColor: '#FFA500',
+                borderWidth: 2,
+                fill: false,
+                pointRadius: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'hour',
+                        displayFormats: {
+                            hour: 'HH:mm'
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Sonnenscheindauer (h)'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    //text: `Sonnenscheindauer in ${city}`
+                }
+            }
+        }
+    });
+}
 
-  // Doughnut Chart for Weather Conditions
-  const ctxWeather = document.getElementById('wetterkonditionen').getContext('2d');
-  const weatherChart = new Chart(ctxWeather, {
-    type: 'doughnut',
-    data: {
-      labels: ['Sonnig', 'Bewölkt', 'Regnerisch'],
-      datasets: [{
-        label: 'Wetterverhältnisse',
-        data: [weatherConditionCounts.sunny, weatherConditionCounts.cloudy, weatherConditionCounts.rainy],
-        backgroundColor: ['#9CDCF0', '#C6C6C6', '#30748A'],
-        hoverOffset: 4
-      }]
-    },
-    options: {
-      responsive: true,
-      title: {
-        display: true,
-        text: 'Wetterverhältnisse'
-      }
-    }
-  });
-})
-.catch(error => {
-  console.error('There was a problem with the fetch operation:', error);
+// Daten für jede Stadt einzeln abrufen und ein Diagramm erstellen
+cities.forEach(city => {
+    fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php?city=${city}`)
+        .then(response => response.json())
+        .then(data => {
+            cityData[city] = data;
+            createChart(city, data.time, data.temperature);
+            createSunshineChart(city, data.time, data.sunshineDuration);
+        })
+        .catch(error => {
+            console.error(`There was a problem with the fetch operation for ${city}:`, error);
+        });
 });
+
+// Funktion zum Filtern und Neuzeichnen der Diagramme
+function filterCharts(duration) {
+    const days = duration === '3 Tage' ? 3 : duration === '1 Woche' ? 7 : 14;
+    const now = new Date();
+    const pastDate = new Date(now.setDate(now.getDate() - days));
+
+    cities.forEach(city => {
+        const filteredTimeData = cityData[city].time.filter(time => new Date(time) >= pastDate);
+        const filteredTemperatureData = cityData[city].temperature.slice(-filteredTimeData.length);
+        const filteredSunshineData = cityData[city].sunshineDuration.slice(-filteredTimeData.length);
+
+        // Diagramme neu erstellen mit gefilterten Daten
+        createChart(city, filteredTimeData, filteredTemperatureData);
+        createSunshineChart(city, filteredTimeData, filteredSunshineData);
+    });
+}
+
+// Event Listener für die Buttons
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.filter-statistik-button').forEach(button => {
+        button.addEventListener('click', function() {
+            filterCharts(this.textContent); // 3 Tage, 1 Woche, 2 Wochen
+        });
+    });
+});
+
+// Funktion zum Abrufen und Darstellen von Wetterbedingungen
+function fetchAndDisplayWeatherConditions() {
+    fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php?city=Bern&city=Lugano&city=Lausanne&city=Chur`)
+        .then(response => response.json())
+        .then(data => {
+            let weatherConditionCounts = { sunny: 0, cloudy: 0, rainy: 0 };
+            data.weatherCondition.forEach(item => {
+                if (item === 'sunny') {
+                    weatherConditionCounts.sunny += 1;
+                } else if (item === 'cloudy') {
+                    weatherConditionCounts.cloudy += 1;
+                } else if (item === 'rainy') {
+                    weatherConditionCounts.rainy += 1;
+                }
+            });
+
+            const ctxWeather = document.getElementById('wetterkonditionen').getContext('2d');
+            const weatherChart = new Chart(ctxWeather, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Sonnig', 'Bewölkt', 'Regnerisch'],
+                    datasets: [{
+                        data: [weatherConditionCounts.sunny, weatherConditionCounts.cloudy, weatherConditionCounts.rainy],
+                        backgroundColor: ['#9CDCF0', '#C6C6C6', '#30748A'],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    aspectRatio: 1.5, // Doughnut Größe
+                    plugins: {
+                        title: {
+                            display: true,
+                            //text: 'Wetterverhältnisse'
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+// Aufruf der Funktion zum Abrufen der Wetterbedingungen
+fetchAndDisplayWeatherConditions();
+
 
 
 
