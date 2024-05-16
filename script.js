@@ -42,7 +42,7 @@ function createChart(city, timeData, temperatureData) {
                     },
                     title: {
                         display: true,
-                       // text: 'Uhrzeit'
+                        text: 'Uhrzeit'
                     }
                 },
                 y: {
@@ -56,7 +56,7 @@ function createChart(city, timeData, temperatureData) {
             plugins: {
                 title: {
                     display: true,
-                    // text: `Temperaturverlauf in ${city}`
+                   // text: `Temperaturverlauf in ${city}`
                 }
             }
         }
@@ -117,6 +117,40 @@ function createSunshineChart(city, timeData, sunshineDurationData) {
     });
 }
 
+// Funktion zum Erstellen eines Wetterkonditionen-Diagramms
+function createWeatherChart(city, weatherConditionCounts) {
+    const canvasId = `weatherChart-${city}`;
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    
+    // Zerstöre bestehende Chart-Instanz, falls vorhanden
+    if (charts[canvasId]) {
+        charts[canvasId].destroy();
+    }
+
+    // Neue Chart-Instanz erstellen
+    charts[canvasId] = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Sonnig', 'Bewölkt', 'Regnerisch'],
+            datasets: [{
+                data: [weatherConditionCounts.sunny, weatherConditionCounts.cloudy, weatherConditionCounts.rainy],
+                backgroundColor: ['#9CDCF0', '#C6C6C6', '#30748A'],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            aspectRatio: 1.5, // Doughnut Größe
+            plugins: {
+                title: {
+                    display: true,
+                    //text: `Wetterverhältnisse in ${city}`
+                }
+            }
+        }
+    });
+}
+
 // Daten für jede Stadt einzeln abrufen und ein Diagramm erstellen
 cities.forEach(city => {
     fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php?city=${city}`)
@@ -125,6 +159,19 @@ cities.forEach(city => {
             cityData[city] = data;
             createChart(city, data.time, data.temperature);
             createSunshineChart(city, data.time, data.sunshineDuration);
+
+            // Wetterbedingungen zählen und Diagramm erstellen
+            let weatherConditionCounts = { sunny: 0, cloudy: 0, rainy: 0 };
+            data.weatherCondition.forEach(item => {
+                if (item === 'sunny') {
+                    weatherConditionCounts.sunny += 1;
+                } else if (item === 'cloudy') {
+                    weatherConditionCounts.cloudy += 1;
+                } else if (item === 'rainy') {
+                    weatherConditionCounts.rainy += 1;
+                }
+            });
+            createWeatherChart(city, weatherConditionCounts);
         })
         .catch(error => {
             console.error(`There was a problem with the fetch operation for ${city}:`, error);
@@ -136,90 +183,39 @@ function filterCharts(duration) {
     const days = duration === '3 Tage' ? 3 : duration === '1 Woche' ? 7 : 14;
     const now = new Date();
     const pastDate = new Date(now.setDate(now.getDate() - days));
+    const city = document.querySelector('.filter-statistik-button').getAttribute('data-city');
 
-    cities.forEach(city => {
-        const filteredTimeData = cityData[city].time.filter(time => new Date(time) >= pastDate);
-        const filteredTemperatureData = cityData[city].temperature.slice(-filteredTimeData.length);
-        const filteredSunshineData = cityData[city].sunshineDuration.slice(-filteredTimeData.length);
+    const filteredTimeData = cityData[city].time.filter(time => new Date(time) >= pastDate);
+    const filteredTemperatureData = cityData[city].temperature.slice(-filteredTimeData.length);
+    const filteredSunshineData = cityData[city].sunshineDuration.slice(-filteredTimeData.length);
 
-        // Diagramme neu erstellen mit gefilterten Daten
-        createChart(city, filteredTimeData, filteredTemperatureData);
-        createSunshineChart(city, filteredTimeData, filteredSunshineData);
+    // Diagramme neu erstellen mit gefilterten Daten
+    createChart(city, filteredTimeData, filteredTemperatureData);
+    createSunshineChart(city, filteredTimeData, filteredSunshineData);
+
+    // Wetterbedingungen zählen und Diagramm erstellen
+    let weatherConditionCounts = { sunny: 0, cloudy: 0, rainy: 0 };
+    cityData[city].weatherCondition.forEach((item, index) => {
+        if (new Date(cityData[city].time[index]) >= pastDate) {
+            if (item === 'sunny') {
+                weatherConditionCounts.sunny += 1;
+            } else if (item === 'cloudy') {
+                weatherConditionCounts.cloudy += 1;
+            } else if (item === 'rainy') {
+                weatherConditionCounts.rainy += 1;
+            }
+        }
     });
+    createWeatherChart(city, weatherConditionCounts);
 }
 
 // Event Listener für die Buttons
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.filter-statistik-button').forEach(button => {
         button.addEventListener('click', function() {
-            filterCharts(this.textContent); // 3 Tage, 1 Woche, 2 Wochen
+            const city = this.getAttribute('data-city');
+            const duration = this.textContent; // 3 Tage, 1 Woche, 2 Wochen
+            filterCharts(duration, city);
         });
     });
 });
-
-// Funktion zum Abrufen und Darstellen von Wetterbedingungen
-function fetchAndDisplayWeatherConditions() {
-    fetch(`https://164933-4.web.fhgr.ch/IM4_Meteo/04_unload.php?city=Bern&city=Lugano&city=Lausanne&city=Chur`)
-        .then(response => response.json())
-        .then(data => {
-            let weatherConditionCounts = { sunny: 0, cloudy: 0, rainy: 0 };
-            data.weatherCondition.forEach(item => {
-                if (item === 'sunny') {
-                    weatherConditionCounts.sunny += 1;
-                } else if (item === 'cloudy') {
-                    weatherConditionCounts.cloudy += 1;
-                } else if (item === 'rainy') {
-                    weatherConditionCounts.rainy += 1;
-                }
-            });
-
-            const ctxWeather = document.getElementById('wetterkonditionen').getContext('2d');
-            const weatherChart = new Chart(ctxWeather, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Sonnig', 'Bewölkt', 'Regnerisch'],
-                    datasets: [{
-                        data: [weatherConditionCounts.sunny, weatherConditionCounts.cloudy, weatherConditionCounts.rainy],
-                        backgroundColor: ['#9CDCF0', '#C6C6C6', '#30748A'],
-                        hoverOffset: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    aspectRatio: 1.5, // Doughnut Größe
-                    plugins: {
-                        title: {
-                            display: true,
-                            //text: 'Wetterverhältnisse'
-                        }
-                    }
-                }
-            });
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
-}
-
-// Aufruf der Funktion zum Abrufen der Wetterbedingungen
-fetchAndDisplayWeatherConditions();
-
-
-
-
-//test-doughnut
-// document.addEventListener('DOMContentLoaded', function() {
-//   var ctx = document.getElementById('wetterkonditionen').getContext('2d');
-//   var testChart = new Chart(ctx, {
-//     type: 'doughnut',
-//     data: {
-//       labels: ['Test1', 'Test2', 'Test3'],
-//       datasets: [{
-//         data: [10, 20, 30],
-//         backgroundColor: ['red', 'blue', 'green']
-//       }]
-//     }
-//   });
-// });
-
-
