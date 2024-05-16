@@ -119,37 +119,49 @@ function createSunshineChart(city, timeData, sunshineDurationData) {
 
 // Funktion zum Erstellen eines Wetterkonditionen-Diagramms
 function createWeatherChart(city, weatherConditionCounts) {
-    const canvasId = `weatherChart-${city}`;
-    const ctx = document.getElementById(canvasId).getContext('2d');
-    
-    // Zerstöre bestehende Chart-Instanz, falls vorhanden
-    if (charts[canvasId]) {
-        charts[canvasId].destroy();
-    }
+  const canvasId = `weatherChart-${city}`;
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  
+  // Zerstöre bestehende Chart-Instanz, falls vorhanden
+  if (charts[canvasId]) {
+      charts[canvasId].destroy();
+  }
 
-    // Neue Chart-Instanz erstellen
-    charts[canvasId] = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Sonnig', 'Bewölkt', 'Regnerisch'],
-            datasets: [{
-                data: [weatherConditionCounts.sunny, weatherConditionCounts.cloudy, weatherConditionCounts.rainy],
-                backgroundColor: ['#9CDCF0', '#C6C6C6', '#30748A'],
-                hoverOffset: 4
-            }]
-        },
-        options: {
-            responsive: true,
-            aspectRatio: 1.5, // Doughnut Größe
-            plugins: {
-                title: {
-                    display: true,
-                    //text: `Wetterverhältnisse in ${city}`
-                }
-            }
-        }
-    });
+  // Neue Chart-Instanz erstellen
+  charts[canvasId] = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+          labels: ['Sonnig', 'Bewölkt', 'Regnerisch'],
+          datasets: [{
+              data: [weatherConditionCounts.sunny, weatherConditionCounts.cloudy, weatherConditionCounts.rainy],
+              backgroundColor: ['#9CDCF0', '#C6C6C6', '#30748A'],
+              borderColor: ['#ffffff', '#ffffff', '#ffffff'], // Border-Farben ändern
+              borderWidth: 0.5,
+              hoverBorderColor: ['#ffffff', '#ffffff', '#ffffff'], // Border-Farben beim Hover ändern
+              hoverBorderWidth: 1.5,
+              hoverOffset: 2
+          }]
+      },
+      options: {
+          responsive: true,
+          maintainAspectRatio: true, // Verhältnis beibehalten
+          aspectRatio: 1.5, // Doughnut Größe
+          layout: {
+              padding: {
+                  top: 10,
+                  bottom: 10
+              }
+          },
+          plugins: {
+              title: {
+                  display: true,
+                  //text: `Wetterverhältnisse in ${city}`
+              }
+          }
+      }
+  });
 }
+
 
 // Daten für jede Stadt einzeln abrufen und ein Diagramm erstellen
 cities.forEach(city => {
