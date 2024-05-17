@@ -4,29 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schweizer Sprachregionen</title>
+    <title>METEO SWISS</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="apple-touch-icon" sizes="180x180" href="favicon-180px.webp">
     <link rel="shortcut icon" href="favicon.svg">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  <!-- Include Chart.js library -->
-</head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    </head>
 
-<body>
-    <div class="statistik-large-div">
-        <div id="title"><h1>LAUSANNE</h1></div>
-        <div id="menu-div"><img id="menu-img" src="img/menu.svg"></div>
+<body class="body-statistik">
+
+    <div class="content-wrapper" id="content-wrapper-statistik">
+        <header class="statistik-large-div">
+            <div class="menu-div">
+                <img id="menu-img" src="img/menu.svg">
+            </div>
+            <div class="title-div" id="title-h1">
+                <h1>METEO SWISS</h1>
+            </div>
+            <div class="menu-div">
+                <a href="menu.html"><img id="menu-img" src="img/menu.svg"></a>
+            </div>
+        </header>
     </div>
 
-    <!-- Canvas element for the chart -->
-    <canvas id="temperatureChart" width="800" height="400"></canvas>
-    <br>
-    <canvas id="sonnenscheindauer" width="800" height="400"></canvas>
-    <br>
-    <canvas id="wetterkonditionen" width="800" height="400"></canvas>
-    
+    <div class="primary-text-div">
+        
+        <div id="index-header-div">
+            <img id="whole-switzerland-img" src="img/ganze_ch_mit_punkten-01.webp">
+        </div>
+
+    </div>
 
     <script src="script.js"></script>
+
 </body>
 
 </html>

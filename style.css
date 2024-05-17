@@ -110,7 +110,8 @@
   }
 
   h1 {
-    color: var(--background-color);
+    /*color: var(--background-color);*/
+    color: white;
     font-size: 6rem;
     font-weight: 800;
     letter-spacing: 0.2rem;
@@ -495,6 +496,15 @@
 }
 .legend-label {
     border-radius: 10px; /* Border-Radius für die Legenden-Labels */
+}
+
+#index-header-div {
+  background-color: green;
+  margin-top: 20rem;
+}
+
+#whole-switzerland-img {
+    margin-top: 30rem;
 }
 
   /* ----------------------------------------menu.html---------------------------------------- */
