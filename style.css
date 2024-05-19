@@ -110,8 +110,7 @@
   }
 
   h1 {
-    /*color: var(--background-color);*/
-    color: white;
+    color: var(--background-color);
     font-size: 6rem;
     font-weight: 800;
     letter-spacing: 0.2rem;
@@ -498,13 +497,40 @@
     border-radius: 10px; /* Border-Radius für die Legenden-Labels */
 }
 
-#index-header-div {
-  background-color: green;
-  margin-top: 20rem;
+#whole-switzerland-img {
+  margin: 0 auto;
+  width: 70%;
+  animation: fadeIn 1s ease-in;
 }
 
-#whole-switzerland-img {
-    margin-top: 30rem;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#index-header-div {
+  padding-top: 4rem;
+  padding-bottom: 6rem;
+  background-color: var(--background-color-light);
+  text-align: center;
+  justify-content: center;
+}
+
+#index-header-p {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.index-img {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  margin-bottom: 5rem;
 }
 
   /* ----------------------------------------menu.html---------------------------------------- */
