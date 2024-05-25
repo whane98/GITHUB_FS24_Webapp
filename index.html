@@ -12,7 +12,8 @@
     <link rel="shortcut icon" href="favicon.svg">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
-    </head>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+</head>
 
 <body class="body-statistik">
 
@@ -32,17 +33,11 @@
 
     <div id="index-header-div">
         <!--<img id="whole-switzerland-img" src="img/ganze_ch_mit_punkten-01.webp">-->
-        <!--<video id="whole-switzerland-img" muted loop>
-            <source src="mp4/ganze_ch_mit_punkten_und_beschriftung_v3.mov" type="video/mp4">
-        </video>-->
-        <video controls>
-            <source src="mp4/ganze_ch_mit_punkten_und_beschriftung_v3.mov" type="video/quicktime">
-            </video>
-        <!--<video id="whole-switzerland-img" src="mp4/ganze_ch_mit_punkten_und_beschriftung_v3.mp4" muted loop></video>-->
+        <dotlottie-player src="https://lottie.host/5ed2fd29-0619-4aa1-a4f8-196a8fd1a83f/I62GQerQRI.json" background="transparent" speed="0.75" loop autoplay></dotlottie-player>
     </div>
 
     <div class="primary-text-div">
-        
+              
         <div id="index-text-div"> <!--Generelles-->
             <p id="index-header-p">Schweizer Wettervielfalt:
                 Ein Blick auf die klimatischen Charakteristika der Romandie, Deutschschweiz, Graubünden und Tessin.</p>
@@ -52,30 +47,31 @@
             <p>Die Deutschschweiz bietet ein abwechslungsreiches Wetter, das von warmen Sommertagen bis hin zu kalten, schneereichen Wintern reicht. Während die Städte oft von sonnigen Tagen profitieren, können die ländlichen Gebiete von starken Schneefällen und kalten Temperaturen geprägt sein, besonders in den höheren Lagen der Alpen. Welches Wetter aktuell in der Deutschschweiz ist, siehst du, wenn du Bern virtuell besuchst:</p>
         </div>
         <div class="index-img-div">
-            <a href="wetter-bern.html" style="cursor: pointer;"><img class="index-img" src="img/deutschschweiz-01.webp"></a>
+            <a href="wetter-bern.html" style="cursor: pointer;"><img class="index-img" id="deutschschweiz" src="img/deutschschweiz-01.webp"></a>
         </div>
 
         <div id="index-text-div"> <!--Romandie-->
             <p>In der Romandie herrscht oft ein mildes, gemässigtes Klima mit sanften Brisen, die über die grünen Hügel und Weinberge streichen. Die Region ist bekannt für ihre sonnigen Tage, die perfekt für Spaziergänge entlang des Genfersees oder durch malerische Dörfer sind. Welches Wetter aktuell in der Romandie ist, siehst du, wenn du Lausanne virtuell besuchst:</p>
         </div>
         <div class="index-img-div">
-            <a href="wetter-lausanne.html" style="cursor: pointer;"><img class="index-img" src="img/romandie-01.webp"></a>
+            <a href="wetter-lausanne.html" style="cursor: pointer;"><img class="index-img" id="romandie" src="img/romandie-01.webp"></a>
         </div>
 
         <div id="index-text-div"> <!--Graubünden-->
             <p>Graubünden, mit seiner vielfältigen Topographie, ist berühmt für seine wechselhaften Wetterbedingungen. Während die Täler oft von sonnigen Tagen und milden Temperaturen profitieren, können die Berggipfel von dichten Wolken und Schneefällen umhüllt sein. Dies schafft ideale Bedingungen für Wintersportaktivitäten wie Skifahren und Snowboarden. Welches Wetter aktuell in Graubünden ist, siehst du, wenn du Chur virtuell besuchst:</p>
         </div>
         <div class="index-img-div">
-            <a href="wetter-chur.html" style="cursor: pointer;"><img class="index-img" src="img/graubuenden-01.webp"></a>
+            <a href="wetter-chur.html" style="cursor: pointer;"><img class="index-img" id="graubuenden" src="img/graubuenden-01.webp"></a>
         </div>
 
         <div id="index-text-div"> <!--Tessin-->
             <p>Im sonnigen Tessin scheint die Sonne oft unerbittlich und sorgt für warme, trockene Tage. Die mediterrane Atmosphäre der Region lockt Besucher an, die sich nach Sonne und blauem Himmel sehnen. Selbst im Winter bleibt das Tessin oft mild, wobei die Berge im Hintergrund oft mit einer weissen Schneedecke bedeckt sind, während die Täler von angenehmen Temperaturen profitieren. Welches Wetter aktuell im Tessin ist, siehst du, wenn du Lugano virtuell besuchst:</p>
         </div>
         <div class="index-img-div">
-            <a href="wetter-lugano.html" style="cursor: pointer;"><img class="index-img" src="img/tessin-01.webp"></a>
+            <a href="wetter-lugano.html" style="cursor: pointer;"><img class="index-img" id="tessin" src="img/tessin-01.webp"></a>
         </div>
-
+        
+        </div>
     </div>
 
     <script src="script.js"></script>

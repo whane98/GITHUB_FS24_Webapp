@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt</title>
+    <link rel="stylesheet" href="style.css">
+    <!--<link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">-->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon-180px.webp">
+    <link rel="shortcut icon" href="favicon.svg">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
+</head>
+
+<body>
+
+    <div class="content-wrapper">
+        <header class="statistik-large-div">
+            <div class="menu-div">
+                <img id="menu-img" src="img/menu.svg">
+            </div>
+            <div class="title-div" id="title-h1">
+                <h1>Kontakt</h1>
+            </div>
+            <div class="menu-div">
+                <a href="menu.html"><img id="menu-img" src="img/menu.svg"></a>
+            </div>
+        </header>
+
+        <div class="main-div">
+
+            <div class="facts">
+                <div class="portrait-div"><img src="img/elena.webp" alt="elena"></div>
+                <p>Elena Berger</p>
+                <p class="facts-p-fine" id="weather-lugano">Die gelernte Kauffrau ist verantwortlich für das UX Design und für  das Storytelling. Sie sorgt dafür, dass Meteo Swiss ein wahres Nutzerlebnis bietet.</p><br><br>
+                <a href="mailto:elena.berger@students.bfh.ch"><button id="statistik-button">Kontaktieren</button></a>
+            </div>
+
+            <div class="facts">
+                <div class="portrait-div"><img src="img/jermyn.webp" alt="elena"></div>
+                <p>Jermyn Dörig</p>
+                <p class="facts-p-fine" id="weather-lugano">Der gelernte Automobilmechatroniker ist verantwortlich für die Datenabfrage, dass Meteo Swiss reibungslos läuft, sowie das Wetter gut bleibt. </p><br><br>
+                <a href="mailto:jermyn.doerig@students.bfh.ch"><button id="statistik-button">Kontaktieren</button></a>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+
+        // change-image-on-hover ---------------------------------------------------------------------------------------------
+        document.addEventListener('DOMContentLoaded', function () {
+            const imgElement = document.getElementById('switzerland-img');
+
+            imgElement.addEventListener('mouseover', function () {
+                this.src = 'img/tessin_weiss-01.webp'; // the new image that appears on hover
+            });
+
+            imgElement.addEventListener('mouseout', function () {
+                this.src = 'img/tessin_mit_punkten-01.webp'; // original image
+            });
+        });
+
+        // fill in the 3 facts in german ---------------------------------------------------------------------------------------------
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('/weather_update.php') // Adjust the path to your PHP script
+                .then(response => response.json())
+                .then(data => {
+                    const luganoData = data['Lugano'];
+
+                    if (luganoData.error) {
+                        console.error('No data for Lugano:', luganoData.error);
+                    } else {
+                        // Translation mapping for weather conditions
+                        const weatherTranslations = {
+                            'sunny': 'Sonnig',
+                            'cloudy': 'Bewölkt',
+                            'rainy': 'Regnerisch',
+                            'snowy': 'Schnee',
+                            'foggy': 'Nebelig',
+                            'windy': 'Windig',
+                            'stormy': 'Stürmisch'
+                        };
+
+                        const sunshineText = `${luganoData.sunshine_duration} Stunden`;
+                        const weatherText = weatherTranslations[luganoData.weather_condition] || luganoData.weather_condition;
+                        const temperatureText = `${luganoData.temperature} °C`;
+
+                        document.getElementById('sunshine-lugano').textContent = sunshineText;
+                        document.getElementById('weather-lugano').textContent = weatherText;
+                        document.getElementById('temperature-lugano').textContent = temperatureText;
+                    }
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+
+    </script>
+</body>
+
+</html>
