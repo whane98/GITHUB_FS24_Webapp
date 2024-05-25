@@ -28,15 +28,13 @@
     <meta name="twitter:image" content="https://164933-4.web.fhgr.ch/img/open-graph_v1.webp">
     <title>Wetter Lausanne</title>
     <link rel="stylesheet" href="style.css">
-        <!--<link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">-->
     <link rel="canonical" href="https://164933-4.web.fhgr.ch/wetter-lausanne.html" />
     <link rel="alternate" hreflang="de" href="https://164933-4.web.fhgr.ch/wetter-lausanne.html" />
     <link rel="apple-touch-icon" sizes="180x180" href="favicon-180px.webp">
     <link rel="shortcut icon" href="favicon.svg">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
-    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> <!-- Include Dotlottie Player -->
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> <!-- include dotlottie player -->
 </head>
 
 <body>
@@ -89,7 +87,7 @@
 
         // fill in the 3 facts in german ---------------------------------------------------------------------------------------------
         document.addEventListener("DOMContentLoaded", function () {
-            fetch('/weather_update.php') // Adjust the path to your PHP script
+            fetch('weather_update.php')
                 .then(response => response.json())
                 .then(data => {
                     const lausanneData = data['Lausanne'];
@@ -97,7 +95,7 @@
                     if (lausanneData.error) {
                         console.error('No data for Lausanne:', lausanneData.error);
                     } else {
-                        // Translation mapping for weather conditions
+                        // translation mapping for weather conditions
                         const weatherTranslations = {
                             'sunny': 'Sonnig',
                             'cloudy': 'Bewölkt',
