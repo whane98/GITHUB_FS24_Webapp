@@ -470,7 +470,7 @@ dotlottie-player {
   font-weight: 600;
 }
 
-#statistik-button {
+.statistik-button {
   background-color: var(--primary-color);
   border-radius: 5rem;
   width: 12rem;
@@ -478,7 +478,7 @@ dotlottie-player {
   font-weight: 300;
 }
 
-#statistik-button:hover {
+.statistik-button:hover {
   background-color: var(--text-color);
   color: var(--primary-color);
 }
@@ -491,7 +491,7 @@ dotlottie-player {
   transition: opacity 2s ease;
 }
 
-.primary-text-div {
+.primary-text-div, #team {
   width: 100%;
   height: auto;
   padding: 1% 25% 5% 25%;
@@ -572,22 +572,40 @@ button {
 
 /* ----------------------------------------kontakt.html---------------------------------------- */
 
+#team {
+  width: 100%;
+  display: flex;
+  gap: 6rem;
+  color: var(--primary-color);
+}
+
+#team > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .portrait-div {
-  border-radius: 0.5rem;
+  width: 100%;
   overflow: hidden;
   margin: 0 0 1.5rem 0;
 }
 
 .portrait-div img {
   width: 100%;
-  height: auto;
-  border-radius: inherit;
+  height: 100%;
+  object-fit: cover;  
+  border-radius: 0.5rem;
   filter: grayscale(100%);
   transition: filter 0.5s ease;
 }
 
 .portrait-div img:hover {
   filter: grayscale(0%);
+}
+
+.team-div {
+  margin-bottom: 2rem;
 }
 
 /* ----------------------------------------make it responsive please---------------------------------------- */
@@ -613,7 +631,7 @@ button {
     padding: 0.4rem;
   }
 
-  #statistik-button {
+  .statistik-button {
     padding: 0.75rem;
   }
 
@@ -692,9 +710,24 @@ button {
     padding: 0.3rem;
   }
 
-  #statistik-button {
+  .statistik-button {
     width: auto;
   }
+
+  #team {
+    flex-direction: column;
+    align-items: center;
+    gap: 6rem;
+  }
+
+  #team > div {
+    max-width: 80%;
+  }
+
+  .team-div {
+    margin-bottom: 1.5rem;
+  }
+
 
 }
 
@@ -778,6 +811,21 @@ button {
   #graubuenden {
     width: 100%;
   }
+
+  #team {
+    flex-direction: column;
+    align-items: center;
+    gap: 6rem;
+    padding: 1% 5% 5% 5%;
+  }
+
+  #team > div {
+    max-width: 80%;
+  }
+
+  .team-div {
+    margin-bottom: 1.5rem;
+  }
 }
 
 @media(max-width: 350px) {
@@ -807,5 +855,15 @@ button {
 
   .canvas-statistik {
     margin-bottom: 2rem;
+  }
+
+  #team {
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  #team > div {
+    max-width: 100%;
   }
 }
