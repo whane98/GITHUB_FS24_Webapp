@@ -331,3 +331,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// auto height for the canvas -------------------------------------------------------------------------------------------------------
+document.addEventListener('DOMContentLoaded', function () {
+    const charts = document.querySelectorAll('.canvas-statistik');
+
+    charts.forEach(chart => {
+        const parentWidth = chart.parentElement.clientWidth;
+        chart.height = parentWidth / 2; // Adjust the divisor to change the aspect ratio
+    });
+
+    window.addEventListener('resize', function () {
+        charts.forEach(chart => {
+            const parentWidth = chart.parentElement.clientWidth;
+            chart.height = parentWidth / 2; // Adjust the divisor to change the aspect ratio
+        });
+    });
+});

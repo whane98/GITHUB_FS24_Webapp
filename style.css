@@ -114,7 +114,6 @@ h1 {
   font-weight: 800;
   letter-spacing: 0.2rem;
   line-height: 1;
-  margin-bottom: 2rem;
   word-wrap: break-word;
 }
 
@@ -133,6 +132,10 @@ h2 {
   font-weight: 500;
   line-height: 2;
   letter-spacing: 0;
+}
+
+.primary-text {
+  font-size: 1.4rem;
 }
 
 a {
@@ -374,19 +377,14 @@ p {
 }
 
 .title-div {
-  margin-top:
-
- 2rem;
   justify-content: center;
   text-align: center;
 }
 
 .menu-div {
   width: auto;
-  height: 5rem;
   text-align: right;
-  padding-top: 0.8rem;
-  padding-right: 3.5rem;
+  padding: 3rem 3.5rem 3rem 3.5rem;
 }
 
 #menu-img {
@@ -395,6 +393,10 @@ p {
 
 .menu-div:first-child #menu-img {
   opacity: 0;
+}
+
+#menu-h1 {
+  margin-top: 2.5rem;
 }
 
 .main-div {
@@ -452,13 +454,13 @@ dotlottie-player {
   width: 37%;
 }
 
-/* ----------------------------------------statistik-seiten     .html---------------------------------------- */
+/* ----------------------------------------all statistik-pages     ->.html---------------------------------------- */
 
 .statistik-large-div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .facts {
   width: 30vw;
@@ -468,17 +470,12 @@ dotlottie-player {
   font-weight: 600;
 }
 
-.facts-p-fine {
-  font-weight: 300;
-}
-
 #statistik-button {
   background-color: var(--primary-color);
   border-radius: 5rem;
   width: 12rem;
-  padding: 1rem;
-  font-weight: 400;
-  font-size: 1.2rem;
+  padding: 0.8rem;
+  font-weight: 300;
 }
 
 #statistik-button:hover {
@@ -508,13 +505,13 @@ dotlottie-player {
 button {
   cursor: pointer;
 }
+
 .body-statistik {
   background-color: var(--primary-color);
 }
 
 #content-wrapper-statistik {
   background-color: var(--background-color-light);
-  height: 10rem;
 }
 
 .filter-button-div {
@@ -531,7 +528,6 @@ button {
   width: 7rem;
   padding: 0.5rem;
   font-weight: 400;
-  font-size: 1rem;
   color: var(--primary-color);
 }
 
@@ -542,6 +538,7 @@ button {
 
 .canvas-statistik {
   margin-bottom: 6rem;
+  height: auto;
 }
 
 #wetterkonditionen {
@@ -551,9 +548,10 @@ button {
 .chart-container {
   position: relative;
   margin: auto;
-  height: 80vh; 
-  width: 80vw; 
+  height: 80vh;
+  width: 80vw;
 }
+
 .legend-label {
   border-radius: 10px;
 }
@@ -584,38 +582,230 @@ button {
   width: 100%;
   height: auto;
   border-radius: inherit;
-  filter: grayscale(100%); 
-  transition: filter 0.5s ease; 
+  filter: grayscale(100%);
+  transition: filter 0.5s ease;
 }
 
 .portrait-div img:hover {
-  filter: grayscale(0%); 
+  filter: grayscale(0%);
 }
 
 /* ----------------------------------------make it responsive please---------------------------------------- */
 
 @media(max-width: 1400px) {
-  /* ------1400px------ */
+  h1 {
+    font-size: 5rem;
+    letter-spacing: 0.1rem;
+  }
 
+  .facts {
+    width: 40vw;
+    padding-left: 5rem;
+  }
+
+  .switzerland img {
+    width: 90%;
+  }
+
+  .filter-statistik-button {
+    width: 6rem;
+    height: auto;
+    padding: 0.4rem;
+  }
+
+  #statistik-button {
+    padding: 0.75rem;
+  }
+
+  .canvas-statistik {
+    margin-bottom: 5rem;
+  }
+
+  .primary-text {
+    font-size: 1.2rem;
+  }
 }
-
-/*  -------------------  */
 
 @media(max-width: 1000px) {
-  /* ------1000px------ */
+  h1 {
+    font-size: 4rem;
+  }
+
+  .primary-text-div {
+    padding: 1% 10% 5% 10%;
+  }
+
+  .font-menu-standard {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+
+  .primary-text {
+    font-size: 1rem;
+  }
+
+  #index-header {
+    padding-top: 1rem;
+  }
+
+  .facts {
+    width: 50vw;
+    padding-left: 4rem;
+  }
+
+  .switzerland img {
+    width: 80%;
+  }
+
+  .canvas-statistik {
+    margin-bottom: 4rem;
+  }
+
+  #index-header-div {
+    padding: 1rem 0 1rem 0;
+  }
+
+  #content-wrapper-statistik {
+    height: auto;
+  }
+
+  #deutschschweiz {
+    width: 65%;
+  }
+
+  #romandie {
+    width: 55%;
+  }
+
+  #tessin {
+    width: 40%;
+  }
+
+  #graubuenden {
+    width: 50%;
+  }
+
+  .filter-statistik-button {
+    min-width: 7rem;
+    margin-bottom: 1rem;
+    padding: 0.3rem;
+  }
+
+  #statistik-button {
+    width: auto;
+  }
 
 }
-
-/*  -------------------  */
 
 @media(max-width: 500px) {
-  /* ------500px------ */
 
+  h1 {
+    font-size: 3rem;
+  }
+
+  .main-div {
+    display: block;
+    padding: 0 2rem 0 2rem;
+  }
+
+  .menu-div {
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .switzerland {
+    padding-top: 4rem;
+  }
+
+  #switzerland-img {
+    width: 100%;
+  }
+
+  .filter-button-div {
+    display: block;
+    gap: 1rem;
+    margin: 1rem 0 1rem 0;
+  }
+
+  .filter-statistik-button {
+    min-width: 7rem;
+    margin-bottom: 1rem;
+    padding: 0.3rem;
+  }
+
+  .font-menu-standard {
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 1rem;
+  }
+
+  .primary-text {
+    font-size: 1.1rem;
+  }
+
+  .facts {
+    font-size: 1rem;
+    padding-left: 1rem;
+  }
+
+  .switzerland img {
+    width: 70%;
+  }
+
+  .canvas-statistik {
+    margin-bottom: 3rem;
+  }
+
+  dotlottie-player {
+    width: 50%;
+  }
+
+  #deutschschweiz {
+    width: 100%;
+  }
+
+  #romandie {
+    width: 85%;
+  }
+
+  #tessin {
+    width: 95%;
+  }
+
+  #graubuenden {
+    width: 100%;
+  }
 }
 
-/*  -------------------  */
-
 @media(max-width: 350px) {
-  /* ------350px------ */
+  h1 {
+    font-size: 2.5rem;
+  }
 
+  .font-menu-standard {
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 1rem;
+  }
+
+  .facts {
+    width: 90vw;
+    padding-left: 0.5rem;
+  }
+
+  .switzerland img {
+    width: 60%;
+  }
+
+  .filter-statistik-button {
+    width: 3.5rem;
+    padding: 0.1rem;
+  }
+
+  .canvas-statistik {
+    margin-bottom: 2rem;
+  }
 }
