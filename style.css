@@ -480,6 +480,11 @@
     font-size: 1.2rem;
   }
 
+  #statistik-button:hover {
+    background-color: var(--text-color);
+    color: var(--primary-color);
+  }
+
   .switzerland {
     padding-right: 1rem;
   }
@@ -502,7 +507,6 @@
   button {
     cursor: pointer;
   }
-
   .body-statistik {
     background-color: var(--primary-color);
   }
@@ -527,6 +531,11 @@
     padding: 0.5rem;
     font-weight: 400;
     font-size: 1rem;
+    color: var(--primary-color);
+  }
+
+  .filter-statistik-button:hover {
+    background-color: var(--text-color);
     color: var(--primary-color);
   }
 
