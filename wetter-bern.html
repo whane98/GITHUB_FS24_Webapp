@@ -88,7 +88,7 @@
 
         // fill in the 3 facts in german ---------------------------------------------------------------------------------------------
         document.addEventListener("DOMContentLoaded", function () {
-            fetch('weather_update.php')
+            fetch('/weather_update.php')
                 .then(response => response.json())
                 .then(data => {
                     const bernData = data['Bern'];
