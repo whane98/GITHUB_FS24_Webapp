@@ -1,47 +1,49 @@
 <?php
 
-// Include the configuration file ---------------------------------------------------------------------------------------------
+// include the configuration file ---------------------------------------------------------------------------------------------
 require_once '00_config.php';
 
-// Check if the city parameter is provided in the request ---------------------------------------------------------------------------------------------
+// check if the city parameter is provided in the request ---------------------------------------------------------------------------------------------
 if (!isset($_GET['city'])) {
-    echo json_encode(['error' => 'City parameter is missing']);
+    echo json_encode(['error' => 'city parameter is missing']);
     exit;
 }
 
-// Retrieve the city parameter from the request ---------------------------------------------------------------------------------------------
+// retrieve the city parameter from the request ---------------------------------------------------------------------------------------------
 $city = $_GET['city'];
 
 try {
-    // Create a new PDO instance 
+    // create a new pdo instance 
     $pdo = new PDO($dsn, $db_user, $db_pass, $options);
 
-    // Prepare the SQL query with a parameter placeholder for the city
-    $query = "SELECT created_at, city, temperature, weather_condition, sunshine_duration FROM Weather_API_IM4 WHERE city = :city";
+    // prepare the sql query with a parameter placeholder for the city
+    $query = "select created_at, city, temperature, weather_condition, sunshine_duration from weather_api_im4 where city = :city";
 
-    // Prepare the statement
+    // prepare the statement
     $stmt = $pdo->prepare($query);
 
-    // Bind the city parameter to the prepared statement
+    // bind the city parameter to the prepared statement
     $stmt->bindParam(':city', $city, PDO::PARAM_STR);
 
-    // Execute the query
+    // execute the query
     $stmt->execute();
 
-    // Fetch all rows into an associative array
+    // fetch all rows into an associative array
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Check if any rows are returned
+    // check if any rows are returned
     if (empty($rows)) {
-        echo json_encode(['error' => 'City not found']);
+        echo json_encode(['error' => 'city not found']);
         exit;
     }
 
-    // Initialize arrays to hold the time and temperature values
+    // initialize arrays to hold the time and temperature values
     $times = [];
     $temperatures = [];
+    $weatherConditions = [];
+    $sunshineDurations = [];
 
-    // Populate the arrays
+    // populate the arrays
     foreach ($rows as $row) {
         $times[] = $row['created_at'];
         $city = $row['city'];
@@ -50,7 +52,7 @@ try {
         $sunshineDurations[] = $row['sunshine_duration'];
     }
 
-    // Prepare the final structure
+    // prepare the final structure
     $result = [
         'time' => $times,
         'city' => $city,
@@ -59,13 +61,13 @@ try {
         'sunshineDuration' => $sunshineDurations
     ]; 
 
-    // Output JSON
-    header('Content-Type: application/json');
+    // output json
+    header('content-type: application/json');
     echo json_encode($result);
 
 } catch (PDOException $e) {
-    // Handle database errors
-    echo json_encode(['error' => 'Connection failed: ' . $e->getMessage()]);
+    // handle database errors
+    echo json_encode(['error' => 'connection failed: ' . $e->getMessage()]);
 }
 
 ?>

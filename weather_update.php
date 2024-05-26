@@ -1,10 +1,10 @@
 <?php
 require_once '00_config.php';
 
-header('Content-Type: application/json');
+header('content-type: application/json');
 
-// List of cities to fetch data for
-$cities = ['Bern', 'Lugano', 'Chur', 'Lausanne'];
+// list of cities to fetch data for
+$cities = ['bern', 'lugano', 'chur', 'lausanne'];
 
 try {
     $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
@@ -13,14 +13,14 @@ try {
     $results = [];
 
     foreach ($cities as $city) {
-        $stmt = $pdo->prepare("SELECT temperature, weather_condition, sunshine_duration FROM Weather_API_IM4 WHERE city = :city ORDER BY id DESC LIMIT 1");
+        $stmt = $pdo->prepare("select temperature, weather_condition, sunshine_duration from weather_api_im4 where city = :city order by id desc limit 1");
         $stmt->execute([':city' => $city]);
         $weatherdata = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($weatherdata) {
             $results[$city] = $weatherdata;
         } else {
-            $results[$city] = ['error' => 'No weather data found for ' . $city];
+            $results[$city] = ['error' => 'no weather data found for ' . $city];
         }
     }
 
@@ -28,6 +28,7 @@ try {
 
 } catch (\Throwable $th) {
     error_log($th->getMessage());
-    echo json_encode(['error' => 'Failed to fetch weather data']);
+    echo json_encode(['error' => 'failed to fetch weather data']);
     exit;
 }
+?>

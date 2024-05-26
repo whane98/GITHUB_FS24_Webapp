@@ -8,57 +8,57 @@ $weatherdata = addWeatherCondition($weatherdata);
 print_r($weatherdata);
 // print_r($weatherdata);
 
-// Funktion zum Abrufen von Daten von der API ---------------------------------------------------------------------------------------------
+// function to fetch data from the API ---------------------------------------------------------------------------------------------
 function fetchDataFromAPI() {
     $url = "https://api.open-meteo.com/v1/forecast?latitude=46.9481,46.516,46.8499,46.0101&longitude=7.4474,6.6328,9.5329,8.96&current=temperature_2m,weather_code&daily=sunshine_duration&timezone=Europe%2FBerlin&forecast_days=16";
 
-    // Datenabruf
-    $ch = curl_init(); // Curl-Handle, initialisiere cURL-Sitzung
+    // data retrieval
+    $ch = curl_init(); // curl handle, initialize curl session
 
-    curl_setopt($ch, CURLOPT_URL, $url);    // Setze URL zum Abrufen
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  // Setze cURL-Option, um die Ausgabe zurückzugeben, anstatt sie im Browser auszugeben
+    curl_setopt($ch, CURLOPT_URL, $url);    // set URL to fetch
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  // set curl option to return the output as a string instead of outputting it in the browser
 
-    $weatherdata = curl_exec($ch);    // Führe cURL-Anfrage aus
-    curl_close($ch);    // Schließe cURL-Handle
+    $weatherdata = curl_exec($ch);    // execute curl request
+    curl_close($ch);    // close curl handle
 
-    // JSON-Antwort decodieren
+    // decode json response
     $weatherdata = json_decode($weatherdata, true);
 
     return $weatherdata;
 }
 
-// Funktion die Koordinaten zu Ortschaften zu machen ---------------------------------------------------------------------------------------------
+// function to map coordinates to cities ---------------------------------------------------------------------------------------------
 
 function mapCoordinatesToCities($data)
 {
     $cityMap = [
-        ['latitude' => 46.94, 'longitude' => 7.44, 'city' => 'Bern'],
-        ['latitude' => 46.52, 'longitude' => 6.64, 'city' => 'Lausanne'],
-        ['latitude' => 46.84, 'longitude' => 9.52, 'city' => 'Chur'],
-        ['latitude' => 46, 'longitude' => 8.940001, 'city' => 'Lugano']
+        ['latitude' => 46.94, 'longitude' => 7.44, 'city' => 'bern'],
+        ['latitude' => 46.52, 'longitude' => 6.64, 'city' => 'lausanne'],
+        ['latitude' => 46.84, 'longitude' => 9.52, 'city' => 'chur'],
+        ['latitude' => 46, 'longitude' => 8.940001, 'city' => 'lugano']
     ];
 
-    $result = []; // Neues Array für die modifizierten Daten
+    $result = []; // new array for the modified data
 
     foreach ($data as $item) {
-        $found = false; // Flag, um zu überprüfen, ob eine Übereinstimmung gefunden wurde
+        $found = false; // flag to check if a match was found
         foreach ($cityMap as $city) {
             if ($item['latitude'] == $city['latitude'] && $item['longitude'] == $city['longitude']) {
-                // Wenn eine Übereinstimmung gefunden wurde, füge die Stadt hinzu und setze das Flag
+                // if a match was found, add the city and set the flag
                 $item['city'] = $city['city'];
                 $found = true;
                 break;
             }
         }
         
-        // Füge das aktualisierte Element dem neuen Array hinzu
+        // add the updated item to the new array
         $result[] = $item;
     }
 
     return $result;
 }
 
-// Funktion zum Temperaturen runden ---------------------------------------------------------------------------------------------
+// function to round temperatures ---------------------------------------------------------------------------------------------
 
 function roundTemperatures($data)
 {
@@ -68,7 +68,7 @@ function roundTemperatures($data)
     return $data;
 }
 
-// Funktion zum Wetterkonditionen zu bestimmen ---------------------------------------------------------------------------------------------
+// function to determine weather conditions ---------------------------------------------------------------------------------------------
 
 function addWeatherCondition($data)
 {
@@ -87,6 +87,3 @@ function addWeatherCondition($data)
 }
 
 ?>
-
-
-
