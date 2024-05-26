@@ -387,11 +387,11 @@ p {
   padding: 3rem 3.5rem 3rem 3.5rem;
 }
 
-#menu-img {
+.menu-img {
   width: 4rem;
 }
 
-.menu-div:first-child #menu-img {
+.menu-div:first-child .menu-img {
   opacity: 0;
 }
 
